@@ -34,11 +34,10 @@ void insere(node *ultimo, node *FILA){
         ultimo->proximo = novo;
         ultimo = novo;
     }
-    
 }
 
 void exibePrimeiro(node *FILA){
-    if(filaVazia(FILA)){
+    if(FILA->proximo == NULL){
         printf("Empty!\n");
     }
     else{
@@ -52,7 +51,8 @@ node *retira(node *FILA){
         return NULL;
     }
     else{
-        node *temp = FILA->proximo;
+        node *temp = (node *) malloc(sizeof(node));
+        temp = FILA->proximo;
         FILA->proximo = temp->proximo;
         return temp;
     }
@@ -60,8 +60,8 @@ node *retira(node *FILA){
 
 int main(){
     
-    node *FILA = (node *) malloc(sizeof(node));
-    FILA->proximo = NULL;
+    node *fila = (node *) malloc(sizeof(node));
+    fila->proximo = NULL;
     
     node *ultimo = (node *) malloc(sizeof(node));
     ultimo->proximo = NULL;
@@ -72,19 +72,19 @@ int main(){
     for(i = 0; i < nEntradas; i++){
         scanf("%d", &opcao);
         if(opcao == 1){
-            insere(ultimo, FILA);
+            insere(ultimo, fila);
         }
         else if(opcao == 2){
-            node *tmp = retira(FILA);
+            node *tmp = retira(fila);
             if(tmp != NULL){
                 free(tmp);
             }
         }
         else if(opcao == 3){
-            exibePrimeiro(FILA);
+            exibePrimeiro(fila);
         }
     }
-    free(FILA);
+    free(fila);
     free(ultimo);
     return 0;
 }
